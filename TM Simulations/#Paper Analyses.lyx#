@@ -1,0 +1,1196 @@
+#LyX 2.4 created this file. For more info see https://www.lyx.org/
+\lyxformat 620
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{chngcntr}
+\counterwithin*{section}{part}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children no
+\begin_local_layout
+Counter section
+        Within               part
+End
+
+Counter theorem
+        Within               part
+End
+\end_local_layout
+\language american
+\language_package default
+\inputencoding utf8
+\fontencoding auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_roman_osf false
+\font_sans_osf false
+\font_typewriter_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement class
+\float_alignment class
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_formatted_ref 0
+\use_minted 0
+\use_lineno 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tablestyle default
+\tracking_changes false
+\output_changes false
+\change_bars false
+\postpone_fragile_content true
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\docbook_table_output 0
+\docbook_mathml_prefix 1
+\end_header
+
+\begin_body
+
+\begin_layout Title
+TM Simulations Results
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\TIME}{\mathrm{TIME}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\SPACE}{\mathrm{SPACE}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\poly}{\mathrm{poly}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\pTreeEval}{\mathrm{TreeEvaluation}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Simulating Time with Square-Root Space —
+ Ryan Williams 2024 
+\begin_inset CommandInset href
+LatexCommand href
+name "PDF"
+target "https://dl.acm.org/doi/pdf/10.1145/3717823.3718225"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\content}{\mathrm{content}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+(Main Theorem) For every function 
+\begin_inset Formula $t(n)\geq n$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\TIME[t(n)]\subseteq\SPACE[\sqrt{t(n)\log t(n)}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Proof Idea
+\end_layout
+
+\begin_layout Standard
+I will reduce the simulation to an instance of the 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ problem,
+ which has been proven to be solvable in space 
+\begin_inset Formula $O(db+h\log(db))$
+\end_inset
+
+,
+ where 
+\begin_inset Formula $d$
+\end_inset
+
+ is the number of children of each node (fan-in),
+ 
+\series bold
+
+\begin_inset Formula $b$
+\end_inset
+
+ 
+\series default
+is the number of bits of the output (bit-length),
+ and 
+\begin_inset Formula $h$
+\end_inset
+
+ is the height of the tree (more about 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ will be included (TODO)).
+ Essentially,
+ I will use the computation of a time 
+\begin_inset Formula $t(n)$
+\end_inset
+
+ TM and turn it into a tree-like structure,
+ by using the notion of block-respecting TM (more about block-respecting TM will be included (TODO)),
+ of height 
+\begin_inset Formula $h=\Theta(t/b)$
+\end_inset
+
+,
+ bit-length 
+\begin_inset Formula $b$
+\end_inset
+
+,
+ and fixed fan-in 
+\begin_inset Formula $d$
+\end_inset
+
+ where I can choose 
+\begin_inset Formula $b=\Theta(\sqrt{t\log t})$
+\end_inset
+
+ to make 
+\begin_inset Formula $h=\Theta(t/b)=\Theta(\sqrt{t/\log t})$
+\end_inset
+
+.
+ Applying the 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ result,
+ we have the space to be 
+\begin_inset Formula 
+\[
+O(db+h\log(db))=O(\sqrt{t\log t}+\sqrt{t/\log t}\cdot\log(\sqrt{t\log t})=O(\sqrt{t\log t}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Previous Result:
+ On Time Versus Space —
+ Hopcroft,
+ Paul,
+ and Valiant 1977
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula $\TIME[t(n)]\subseteq\SPACE[t(n)/\log t(n)]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+TBD (TODO)
+\end_layout
+
+\begin_layout Section
+Warm-Up Result
+\end_layout
+
+\begin_layout Theorem
+For every function 
+\begin_inset Formula $t(n)\geq n^{2}$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\TIME[t(n)]\subseteq\SPACE[\sqrt{t(n)}\log t(n)]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Before I present the proof,
+ I also need the following theorem.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:oblivious-sim"
+
+\end_inset
+
+Given a multitape TM 
+\begin_inset Formula $M$
+\end_inset
+
+ running in time 
+\begin_inset Formula $t(n)$
+\end_inset
+
+,
+ we can construct an equivalent 
+\series bold
+oblivious
+\series default
+ 2-tape TM 
+\begin_inset Formula $M'$
+\end_inset
+
+ running in time 
+\begin_inset Formula $T(n)\leq O(t(n)\log t(n))$
+\end_inset
+
+.
+ Furthermore,
+ given 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula $i\in[T(n)]$
+\end_inset
+
+ specified in 
+\begin_inset Formula $O(\log t(n))$
+\end_inset
+
+ bits,
+ the 2 head positions of 
+\begin_inset Formula $M'$
+\end_inset
+
+ can be computed in 
+\begin_inset Formula $\poly(\log t(n))$
+\end_inset
+
+ time.
+\end_layout
+
+\begin_layout Standard
+The proof of this theorem will be included later (TODO).
+\end_layout
+
+\begin_layout Standard
+Using Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:oblivious-sim"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+,
+ I now have an oblivious 2-tape TM 
+\begin_inset Formula $M'$
+\end_inset
+
+ running in time 
+\begin_inset Formula $T\leq O(t\log t)$
+\end_inset
+
+.
+ I will now partition the computation of 
+\begin_inset Formula $M'$
+\end_inset
+
+ into time and tape blocks (see block-respecting TM).
+ Specifically,
+ the two tapes of 
+\begin_inset Formula $M'$
+\end_inset
+
+ will be split into 
+\series bold
+tape blocks
+\series default
+ of 
+\begin_inset Formula $b(n)$
+\end_inset
+
+contiguous cells and the 
+\begin_inset Formula $T(n)$
+\end_inset
+
+ steps of 
+\begin_inset Formula $M'$
+\end_inset
+
+ are split into 
+\begin_inset Formula $B(n):=O(T(n)/b(n))$
+\end_inset
+
+ 
+\series bold
+time blocks
+\series default
+ of length up to 
+\begin_inset Formula $b(n)$
+\end_inset
+
+.
+ Because each time block is of length 
+\begin_inset Formula $\leq b$
+\end_inset
+
+,
+ at most two tape blocks can be accessed during a time block for each tape,
+ four tape blocks for both tapes.
+\end_layout
+
+\begin_layout Subsection
+Computation Graph
+\end_layout
+
+\begin_layout Standard
+I now construct a computation graph as follows.
+ The graph 
+\begin_inset Formula $G_{M'}$
+\end_inset
+
+ will have 
+\begin_inset Formula $B+1=O(T/b)$
+\end_inset
+
+ nodes,
+ where each node 
+\begin_inset Formula $i$
+\end_inset
+
+ for each time block 
+\begin_inset Formula $i\in{0,1,\ldots,B}$
+\end_inset
+
+.
+ Each node 
+\begin_inset Formula $i$
+\end_inset
+
+ will have a fixed 
+\begin_inset Formula $d$
+\end_inset
+
+ number of nodes directed at it,
+ representing the time blocks that need to be read in order to compute the content of the tape blocks accessed during time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Since there are at most 2 tape blocks accessed during a time block for each tape (4 for both),
+ I need at most 4 nodes to be connected to node 
+\begin_inset Formula $i$
+\end_inset
+
+ for each 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ I will also connect node 
+\begin_inset Formula $i-1$
+\end_inset
+
+ with 
+\begin_inset Formula $i$
+\end_inset
+
+ to obtain the head positions of time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Thus,
+ for each node 
+\begin_inset Formula $i$
+\end_inset
+
+ there are at most 5 nodes connected to it (in other words,
+ 
+\begin_inset Formula $d=5$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Due to the obliviousness of 
+\begin_inset Formula $M'$
+\end_inset
+
+,
+ I can claim that determining whether nodes 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are connected cost only an additional 
+\begin_inset Formula $\poly(\log t)$
+\end_inset
+
+ space.
+ By Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:oblivious-sim"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+,
+ I can calculate the 2 tape head positions at any point in time using only 
+\begin_inset Formula $\poly(\log t)$
+\end_inset
+
+ time.
+ Thus,
+ I can keep track of the tape head locations from time block 
+\begin_inset Formula $i$
+\end_inset
+
+ to time block 
+\begin_inset Formula $j$
+\end_inset
+
+ using 
+\begin_inset Formula $\poly(\log t)$
+\end_inset
+
+ space.
+\end_layout
+
+\begin_layout Standard
+Now,
+ I need to compute the content of each tape blocks accessed during time block 
+\begin_inset Formula $i$
+\end_inset
+
+,
+ which will be the status of 
+\begin_inset Formula $M'$
+\end_inset
+
+ at the end of time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ More specifically,
+ let 
+\begin_inset Formula $\content(i)$
+\end_inset
+
+ denote the content of time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ I will include in 
+\begin_inset Formula $\content(i)$
+\end_inset
+
+ the following:
+ the state of 
+\begin_inset Formula $M'$
+\end_inset
+
+,
+ the 2 tape head positions,
+ and a list of the contents of those tape blocks accessed during time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ As there are at most 4 such tape blocks,
+ 
+\begin_inset Formula $\content(i)$
+\end_inset
+
+ can be encoded in 
+\begin_inset Formula $O(b+\log t)\leq O(b)$
+\end_inset
+
+ bits.
+ I can also compute 
+\begin_inset Formula $\content(i)$
+\end_inset
+
+ in 
+\begin_inset Formula $O(b)$
+\end_inset
+
+ time and space,
+ given the contents of all nodes 
+\begin_inset Formula $j$
+\end_inset
+
+ connected to 
+\begin_inset Formula $i$
+\end_inset
+
+,
+ by simply simulating 
+\begin_inset Formula $M'$
+\end_inset
+
+ for 
+\begin_inset Formula $b$
+\end_inset
+
+ steps.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ Instance
+\end_layout
+
+\begin_layout Standard
+Now,
+ I'm ready to construct a 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ instance.
+ More precisely,
+ I construct a tree 
+\begin_inset Formula $R_{M'}$
+\end_inset
+
+ of height 
+\begin_inset Formula $B+1$
+\end_inset
+
+ and fan-in at most 5,
+ with a root node that will evaluate to 
+\begin_inset Formula $\content(B)$
+\end_inset
+
+.
+ Each tree node 
+\begin_inset Formula $v$
+\end_inset
+
+ of 
+\begin_inset Formula $R_{M'}$
+\end_inset
+
+ will be labeled by a path from some graph node 
+\begin_inset Formula $i$
+\end_inset
+
+ to graph node 
+\begin_inset Formula $B$
+\end_inset
+
+ of 
+\begin_inset Formula $G_{M'}$
+\end_inset
+
+.
+ Inductively,
+ I label the root node of 
+\begin_inset Formula $R_{M'}$
+\end_inset
+
+ with the empty string.
+ Then,
+ for every tree node 
+\begin_inset Formula $v$
+\end_inset
+
+ labeled by the path 
+\begin_inset Formula $P$
+\end_inset
+
+ from graph node 
+\begin_inset Formula $i$
+\end_inset
+
+ to graph node 
+\begin_inset Formula $B$
+\end_inset
+
+,
+ and for every graph node 
+\begin_inset Formula $j$
+\end_inset
+
+ connected to 
+\begin_inset Formula $i$
+\end_inset
+
+,
+ I create tree node 
+\begin_inset Formula $v'$
+\end_inset
+
+ labeled by the path from 
+\begin_inset Formula $j$
+\end_inset
+
+ to 
+\begin_inset Formula $i$
+\end_inset
+
+ then path 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The desired value to be computed at node 
+\begin_inset Formula $v$
+\end_inset
+
+ labeled by path from 
+\begin_inset Formula $i$
+\end_inset
+
+ to 
+\begin_inset Formula $B$
+\end_inset
+
+ is 
+\begin_inset Formula $\content(i)$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $i=0$
+\end_inset
+
+,
+ this value is the initial configuration of 
+\begin_inset Formula $M'$
+\end_inset
+
+,
+ which can be produced immediately in 
+\begin_inset Formula $O(n)$
+\end_inset
+
+ time and space.
+ For 
+\begin_inset Formula $i>0$
+\end_inset
+
+,
+ 
+\begin_inset Formula $\content(j)$
+\end_inset
+
+ can be computed in 
+\begin_inset Formula $O(b)$
+\end_inset
+
+ time and space given the contents of all children nodes.
+\end_layout
+
+\begin_layout Standard
+Finally,
+ although the tree has 
+\begin_inset Formula $2^{\Theta(B)}\leq2^{\Theta(T/b)}$
+\end_inset
+
+ nodes,
+ I actually have random access to the every node and every function at each node,
+ with an additional cost of only 
+\begin_inset Formula $\poly(\log t)$
+\end_inset
+
+ space.
+ This is because given a node,
+ I can compute the children nodes similarly to how I can determine whether two graph nodes are connected,
+ mentioned earlier.
+ And I can reuse this space once the children nodes have been determined.
+ I can then use the 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ result and let 
+\begin_inset Formula $b=\sqrt{t}\log t$
+\end_inset
+
+ to get the desired result of 
+\begin_inset Formula $O(\sqrt{t}\log t)$
+\end_inset
+
+.
+ Now,
+ to get the better bound in the main theorem,
+ I need to reduce the height of the tree from 
+\begin_inset Formula $B+1=O(T/b)=O((t\log t)/b)$
+\end_inset
+
+ down to 
+\begin_inset Formula $O(t/b)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Main Result
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $t\log t$
+\end_inset
+
+ blow up is mainly due to the simulation of oblivious TMs.
+ In order to prevent it,
+ I will no longer use such simulation,
+ but then the difficulty becomes determining the edges of the computation graph efficiently.
+ However,
+ I can use more space to accomplish this.
+ The idea is that I will enumerate over possible computation graphs 
+\begin_inset Formula $G'$
+\end_inset
+
+ and introduce a method for checking that 
+\begin_inset Formula $G'=G_{M'}$
+\end_inset
+
+ in the functions of my 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ instance.
+\end_layout
+
+\begin_layout Standard
+To start,
+ I am given a multitape TM 
+\begin_inset Formula $M$
+\end_inset
+
+ which runs in time 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ I will use the following lemma to get a block-respecting TM 
+\begin_inset Formula $M'$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+For every time-constructible 
+\begin_inset Formula $b(n)$
+\end_inset
+
+,
+ 
+\begin_inset Formula $t(n)$
+\end_inset
+
+ such that 
+\begin_inset Formula $\log t\leq b\leq t$
+\end_inset
+
+ and every 
+\begin_inset Formula $t$
+\end_inset
+
+-time 
+\begin_inset Formula $l$
+\end_inset
+
+-tape TM 
+\begin_inset Formula $M$
+\end_inset
+
+,
+ there is an equivalent 
+\begin_inset Formula $O(t)$
+\end_inset
+
+-time block-respecting 
+\begin_inset Formula $(l+1)$
+\end_inset
+
+-tape TM 
+\begin_inset Formula $M'$
+\end_inset
+
+ with blocks of length 
+\begin_inset Formula $b$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Now,
+ I have a multitape TM 
+\begin_inset Formula $M'$
+\end_inset
+
+ with 
+\begin_inset Formula $p:=l+1$
+\end_inset
+
+ tapes,
+ runs in time 
+\begin_inset Formula $O(t)$
+\end_inset
+
+,
+ and has 
+\begin_inset Formula $B:=O(t/b)$
+\end_inset
+
+ time and tape blocks.
+\end_layout
+
+\begin_layout Subsection
+Computation Graph
+\end_layout
+
+\begin_layout Standard
+I will construct a slightly different computation graph than the one in the warm-up example.
+ Here,
+ the set of nodes in 
+\begin_inset Formula $G'$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+S=\{(h,i),(h,0,i)\;|\;h\in[p],i\in[B]].
+\]
+
+\end_inset
+
+Intuitively,
+ each 
+\begin_inset Formula $(h,i)$
+\end_inset
+
+ will correspond to the content of the relevant block of tape 
+\begin_inset Formula $h$
+\end_inset
+
+ after time block 
+\begin_inset Formula $i$
+\end_inset
+
+,
+ while each 
+\begin_inset Formula $(h,0,i)$
+\end_inset
+
+ corresponds to the content of the 
+\begin_inset Formula $i$
+\end_inset
+
+-th block of tape 
+\begin_inset Formula $h$
+\end_inset
+
+ when it is accessed for the first time,
+ i.e.
+ the initial configuration.
+ Each node 
+\begin_inset Formula $(h,i)$
+\end_inset
+
+ is labeled with an integer 
+\begin_inset Formula $m_{(h,i)}\in\{-1,0,1\}$
+\end_inset
+
+,
+ indicating the tape head movement at the end of time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Next,
+ there are two types of edges in 
+\begin_inset Formula $G'$
+\end_inset
+
+.
+ As before,
+ each node 
+\begin_inset Formula $(h,i)$
+\end_inset
+
+ will be directed to by nodes that are needed to compute the content of 
+\begin_inset Formula $(h,i)$
+\end_inset
+
+.
+ For each 
+\begin_inset Formula $h'\in[p]$
+\end_inset
+
+,
+ we connect 
+\begin_inset Formula $(h',i-1)$
+\end_inset
+
+ to 
+\begin_inset Formula $(h,i)$
+\end_inset
+
+ for 
+\begin_inset Formula $i>1$
+\end_inset
+
+ and 
+\begin_inset Formula $(h',0,1)$
+\end_inset
+
+ to 
+\begin_inset Formula $(h,1)$
+\end_inset
+
+.
+ Additionally,
+ for each 
+\begin_inset Formula $h'\in[p]$
+\end_inset
+
+,
+ we connect 
+\begin_inset Formula $(h',i')$
+\end_inset
+
+ (or 
+\begin_inset Formula $(h',0,i')$
+\end_inset
+
+) to 
+\begin_inset Formula $(h,i)$
+\end_inset
+
+ indicating the most recent time block that accessed the tape block of time block 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Ultimately,
+ each node has in-degree of at most 
+\begin_inset Formula $2p$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Succinct Graph Encoding
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Part
+Improved Bounds on the Space Complexity of Circuit Evaluation —
+ Yakov Shalunov 2025 
+\begin_inset CommandInset href
+LatexCommand href
+name "ECCC"
+target "https://eccc.weizmann.ac.il/report/2025/078/"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "ECCC"
+target "https://eccc.weizmann.ac.il/report/2025/078/"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+(Main Theorem) Given a size 
+\begin_inset Formula $s$
+\end_inset
+
+ circuit 
+\begin_inset Formula $C$
+\end_inset
+
+ on 
+\begin_inset Formula $n\leq s$
+\end_inset
+
+ inputs and an input 
+\begin_inset Formula $x\in\{0,1\}^{n}$
+\end_inset
+
+,
+ the output of 
+\begin_inset Formula $C(x)$
+\end_inset
+
+ can be evaluated in space 
+\begin_inset Formula $O(\sqrt{s\log s})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Proof Idea
+\end_layout
+
+\begin_layout Standard
+Similar to the previous paper by Williams,
+ I will reduce this simulation to the 
+\begin_inset Formula $\pTreeEval$
+\end_inset
+
+ problem.
+ 
+\end_layout
+
+\begin_layout Section
+Warm-Up result
+\end_layout
+
+\begin_layout Proposition
+Size 
+\begin_inset Formula $s$
+\end_inset
+
+ circuits can be evaluated in space 
+\begin_inset Formula $\tilde{O}(s^{2/3})$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
