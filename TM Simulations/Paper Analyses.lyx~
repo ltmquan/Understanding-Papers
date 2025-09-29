@@ -5,24 +5,11 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
-\begin_preamble
-\usepackage{chngcntr}
-\counterwithin*{section}{part}
-\end_preamble
 \use_default_options true
 \begin_modules
 theorems-ams
 \end_modules
 \maintain_unincluded_children no
-\begin_local_layout
-Counter section
-        Within               part
-End
-
-Counter theorem
-        Within               part
-End
-\end_local_layout
 \language american
 \language_package default
 \inputencoding utf8
@@ -65,7 +52,7 @@ End
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
-\biblio_style alpha
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -140,12 +127,13 @@ TM Simulations Results
 
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Simulating Time with Square-Root Space —
- Ryan Williams 2025 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "time-square-root-space:williams:2025"
+ Ryan Williams 2024 
+\begin_inset CommandInset href
+LatexCommand href
+name "PDF"
+target "https://dl.acm.org/doi/pdf/10.1145/3717823.3718225"
 literal "false"
 
 \end_inset
@@ -184,7 +172,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Proof Idea
 \end_layout
 
@@ -260,7 +248,7 @@ is the number of bits of the output (bit-length),
  we have the space to be 
 \begin_inset Formula 
 \[
-O(db+h\log(db))=O(\sqrt{t\log t}+\sqrt{t/\log t}\cdot\log(\sqrt{t\log t}))=O(\sqrt{t\log t}).
+O(db+h\log(db))=O(\sqrt{t\log t}+\sqrt{t/\log t}\cdot\log(\sqrt{t\log t})=O(\sqrt{t\log}t).
 \]
 
 \end_inset
@@ -268,20 +256,12 @@ O(db+h\log(db))=O(\sqrt{t\log t}+\sqrt{t/\log t}\cdot\log(\sqrt{t\log t}))=O(\sq
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Previous Result:
  On Time Versus Space —
  Hopcroft,
  Paul,
- and Valiant 1977 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "time-versus-space:hopcoft-paul-valiant:1977"
-literal "false"
-
-\end_inset
-
-
+ and Valiant 1977
 \end_layout
 
 \begin_layout Theorem
@@ -292,10 +272,10 @@ literal "false"
 \end_layout
 
 \begin_layout Proof
-TODO
+TBD (TODO)
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Warm-Up Result
 \end_layout
 
@@ -445,10 +425,6 @@ time blocks
  four tape blocks for both tapes.
 \end_layout
 
-\begin_layout Subsection
-Computation Graph
-\end_layout
-
 \begin_layout Standard
 I now construct a computation graph as follows.
  The graph 
@@ -569,6 +545,9 @@ nolink "false"
 \end_inset
 
  space.
+ 
+\color red
+(need further investigation)
 \end_layout
 
 \begin_layout Standard
@@ -650,13 +629,6 @@ Now,
 \end_inset
 
  steps.
-\end_layout
-
-\begin_layout Subsection
-\begin_inset Formula $\pTreeEval$
-\end_inset
-
- Instance
 \end_layout
 
 \begin_layout Standard
@@ -752,531 +724,6 @@ Now,
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Standard
-The desired value to be computed at node 
-\begin_inset Formula $v$
-\end_inset
-
- labeled by path from 
-\begin_inset Formula $i$
-\end_inset
-
- to 
-\begin_inset Formula $B$
-\end_inset
-
- is 
-\begin_inset Formula $\content(i)$
-\end_inset
-
-.
- For 
-\begin_inset Formula $i=0$
-\end_inset
-
-,
- this value is the initial configuration of 
-\begin_inset Formula $M'$
-\end_inset
-
-,
- which can be produced immediately in 
-\begin_inset Formula $O(n)$
-\end_inset
-
- time and space.
- For 
-\begin_inset Formula $i>0$
-\end_inset
-
-,
- 
-\begin_inset Formula $\content(j)$
-\end_inset
-
- can be computed in 
-\begin_inset Formula $O(b)$
-\end_inset
-
- time and space given the contents of all children nodes.
-\end_layout
-
-\begin_layout Standard
-Finally,
- although the tree has 
-\begin_inset Formula $2^{\Theta(B)}\leq2^{\Theta(T/b)}$
-\end_inset
-
- nodes,
- I actually have random access to the every node and every function at each node,
- with an additional cost of only 
-\begin_inset Formula $\poly(\log t)$
-\end_inset
-
- space.
- This is because given a node,
- I can compute the children nodes similarly to how I can determine whether two graph nodes are connected,
- mentioned earlier.
- And I can reuse this space once the children nodes have been determined.
- I can then use the 
-\begin_inset Formula $\pTreeEval$
-\end_inset
-
- result and let 
-\begin_inset Formula $b=\sqrt{t}\log t$
-\end_inset
-
- to get the desired result of 
-\begin_inset Formula $O(\sqrt{t}\log t)$
-\end_inset
-
-.
- Now,
- to get the better bound in the main theorem,
- I need to reduce the height of the tree from 
-\begin_inset Formula $B+1=O(T/b)=O((t\log t)/b)$
-\end_inset
-
- down to 
-\begin_inset Formula $O(t/b)$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Main Result
-\end_layout
-
-\begin_layout Standard
-The 
-\begin_inset Formula $t\log t$
-\end_inset
-
- blow up is mainly due to the simulation of oblivious TMs.
- In order to prevent it,
- I will no longer use such simulation,
- but then the difficulty becomes determining the edges of the computation graph efficiently.
- However,
- I can use more space to accomplish this.
- The idea is that I will enumerate over possible computation graphs 
-\begin_inset Formula $G'$
-\end_inset
-
- and introduce a method for checking that 
-\begin_inset Formula $G'=G_{M'}$
-\end_inset
-
- in the functions of my 
-\begin_inset Formula $\pTreeEval$
-\end_inset
-
- instance.
-\end_layout
-
-\begin_layout Standard
-To start,
- I am given a multitape TM 
-\begin_inset Formula $M$
-\end_inset
-
- which runs in time 
-\begin_inset Formula $t$
-\end_inset
-
-.
- I will use the following lemma to get a block-respecting TM 
-\begin_inset Formula $M'$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Lemma
-For every time-constructible 
-\begin_inset Formula $b(n)$
-\end_inset
-
-,
- 
-\begin_inset Formula $t(n)$
-\end_inset
-
- such that 
-\begin_inset Formula $\log t\leq b\leq t$
-\end_inset
-
- and every 
-\begin_inset Formula $t$
-\end_inset
-
--time 
-\begin_inset Formula $l$
-\end_inset
-
--tape TM 
-\begin_inset Formula $M$
-\end_inset
-
-,
- there is an equivalent 
-\begin_inset Formula $O(t)$
-\end_inset
-
--time block-respecting 
-\begin_inset Formula $(l+1)$
-\end_inset
-
--tape TM 
-\begin_inset Formula $M'$
-\end_inset
-
- with blocks of length 
-\begin_inset Formula $b$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Now,
- I have a multitape TM 
-\begin_inset Formula $M'$
-\end_inset
-
- with 
-\begin_inset Formula $p:=l+1$
-\end_inset
-
- tapes,
- runs in time 
-\begin_inset Formula $O(t)$
-\end_inset
-
-,
- and has 
-\begin_inset Formula $B:=O(t/b)$
-\end_inset
-
- time and tape blocks.
-\end_layout
-
-\begin_layout Subsection
-Computation Graph
-\end_layout
-
-\begin_layout Standard
-I will construct a slightly different computation graph than the one in the warm-up example.
- Here,
- the set of nodes in 
-\begin_inset Formula $G'$
-\end_inset
-
- is
-\begin_inset Formula 
-\[
-S=\{(h,i),(h,0,i)\;|\;h\in[p],i\in[B]].
-\]
-
-\end_inset
-
-Intuitively,
- each 
-\begin_inset Formula $(h,i)$
-\end_inset
-
- will correspond to the content of the relevant block of tape 
-\begin_inset Formula $h$
-\end_inset
-
- after time block 
-\begin_inset Formula $i$
-\end_inset
-
-,
- while each 
-\begin_inset Formula $(h,0,i)$
-\end_inset
-
- corresponds to the content of the 
-\begin_inset Formula $i$
-\end_inset
-
--th block of tape 
-\begin_inset Formula $h$
-\end_inset
-
- when it is accessed for the first time,
- i.e.
- the initial configuration.
- Each node 
-\begin_inset Formula $(h,i)$
-\end_inset
-
- is labeled with an integer 
-\begin_inset Formula $m_{(h,i)}\in\{-1,0,1\}$
-\end_inset
-
-,
- indicating the tape head movement at the end of time block 
-\begin_inset Formula $i$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Next,
- there are two types of edges in 
-\begin_inset Formula $G'$
-\end_inset
-
-.
- As before,
- each node 
-\begin_inset Formula $(h,i)$
-\end_inset
-
- will be directed to by nodes that are needed to compute the content of 
-\begin_inset Formula $(h,i)$
-\end_inset
-
-.
- For each 
-\begin_inset Formula $h'\in[p]$
-\end_inset
-
-,
- we connect 
-\begin_inset Formula $(h',i-1)$
-\end_inset
-
- to 
-\begin_inset Formula $(h,i)$
-\end_inset
-
- for 
-\begin_inset Formula $i>1$
-\end_inset
-
- and 
-\begin_inset Formula $(h',0,1)$
-\end_inset
-
- to 
-\begin_inset Formula $(h,1)$
-\end_inset
-
-.
- Additionally,
- for each 
-\begin_inset Formula $h'\in[p]$
-\end_inset
-
-,
- we connect 
-\begin_inset Formula $(h',i')$
-\end_inset
-
- (or 
-\begin_inset Formula $(h',0,i')$
-\end_inset
-
-) to 
-\begin_inset Formula $(h,i)$
-\end_inset
-
- indicating the most recent time block that accessed the tape block of time block 
-\begin_inset Formula $i$
-\end_inset
-
-.
- Ultimately,
- each node has in-degree of at most 
-\begin_inset Formula $2p$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Succinct Graph Encoding
-\end_layout
-
-\begin_layout Standard
-TODO
-\end_layout
-
-\begin_layout Part
-Improved Bounds on the Space Complexity of Circuit Evaluation —
- Yakov Shalunov 2025 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "space-bound-circuit-eval:shalunov:2025"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Theorem
-(Main Theorem) Given a size 
-\begin_inset Formula $s$
-\end_inset
-
- circuit 
-\begin_inset Formula $C$
-\end_inset
-
- on 
-\begin_inset Formula $n\leq s$
-\end_inset
-
- inputs and an input 
-\begin_inset Formula $x\in\{0,1\}^{n}$
-\end_inset
-
-,
- the output of 
-\begin_inset Formula $C(x)$
-\end_inset
-
- can be evaluated in space 
-\begin_inset Formula $O(\sqrt{s\log s})$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Proof Idea
-\end_layout
-
-\begin_layout Standard
-Similar to the previous paper by Williams,
- I will reduce this simulation to the 
-\begin_inset Formula $\pTreeEval$
-\end_inset
-
- problem.
- 
-\end_layout
-
-\begin_layout Standard
-TODO
-\end_layout
-
-\begin_layout Part
-Tree Evaluation Is In Space 
-\begin_inset Formula $O(\log n\cdot\log\log n)$
-\end_inset
-
- —
- James Cook,
- Ian Mertz 2023 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "space-bound-tree-eval:cook-mertz:2023"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Theorem
-(Main Theorem) Any 
-\begin_inset Formula $\pTreeEval$
-\end_inset
-
- instance can be computed in space 
-\begin_inset Formula $O((h+\log k)\cdot\log\log k)$
-\end_inset
-
-,
- where 
-\begin_inset Formula $h$
-\end_inset
-
- is the height and 
-\begin_inset Formula $k$
-\end_inset
-
- is the alphabet size.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-\color red
-NOTE
-\series default
-\color inherit
-:
- For the papers in this file,
- I use the improved result from the Improvement section of this paper,
- taken from Goldreich's survey 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "on-cook-mertz-tree-eval:goldreich:2024"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Proof Idea
-\end_layout
-
-\begin_layout Section
-Main Result
-\end_layout
-
-\begin_layout Section
-Improvement:
- On the Cook-Mertz Tree Evaluation Procedure —
- Goldreich 2024 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "on-cook-mertz-tree-eval:goldreich:2024"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-btprint "btPrintCited"
-bibfiles "bibliography"
-options "plain"
-encoding "default"
-
-\end_inset
-
-
 \end_layout
 
 \end_body
